@@ -2,15 +2,13 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../screens/home";
-import Profile  from "../screens/profile/index";
 import {
-  Layout,
-  Text,
   BottomNavigation,
   BottomNavigationTab,
   Icon,
 } from "@ui-kitten/components";
 import { ProfileNavigator } from "./profile-navigator";
+import { MatchesNavigator } from "./matches-navigator";
 
 const bottomTab = createBottomTabNavigator();
 
@@ -30,14 +28,13 @@ const BottomTabBar = ({ navigation, state }: any) => (
 
 const TabNavigator = () => (
   <bottomTab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-    <bottomTab.Screen name="Dates" component={HomeScreen} />
+    <bottomTab.Screen name="Matches" component={MatchesNavigator} />
     <bottomTab.Screen name="Home" component={HomeScreen} />
     <bottomTab.Screen name="Profile" component={ProfileNavigator} />
   </bottomTab.Navigator>
 );
 export const AppNavigator = () => (
   <NavigationContainer>
-    {/* <HomeNavigator /> */}
     <TabNavigator />
   </NavigationContainer>
 );
