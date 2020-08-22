@@ -5,6 +5,7 @@ import {
   StyleService,
   Text,
   useStyleSheet,
+  Icon,
 } from "@ui-kitten/components";
 import { ProfileAvatar } from "./extra/profile-avatar.component";
 import { ProfileSetting } from "./extra/profile-setting.component";
@@ -12,7 +13,9 @@ import { CameraIcon } from "./extra/icons";
 import { Profile } from "./extra/data";
 
 const profile: Profile = Profile.jenniferGreen();
-
+const cameraIcon = (props:any) => (
+  <Icon name='camera-outline' {...props} />
+)
 export default ({ navigation }: any): React.ReactElement => {
   const styles = useStyleSheet(themedStyles);
 
@@ -21,7 +24,7 @@ export default ({ navigation }: any): React.ReactElement => {
   };
 
   const renderPhotoButton = (): React.ReactElement => (
-    <Button style={styles.photoButton} status="basic" icon={CameraIcon} />
+    <Button style={styles.photoButton} status="basic" accessoryRight={cameraIcon} />
   );
 
   return (

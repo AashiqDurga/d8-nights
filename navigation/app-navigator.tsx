@@ -10,6 +10,7 @@ import {
   BottomNavigationTab,
   Icon,
 } from "@ui-kitten/components";
+import { ProfileNavigator } from "./profile-navigator";
 
 const bottomTab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ const TabNavigator = () => (
   <bottomTab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
     <bottomTab.Screen name="Dates" component={HomeScreen} />
     <bottomTab.Screen name="Home" component={HomeScreen} />
-    <bottomTab.Screen name="Profile" component={Profile} />
+    <bottomTab.Screen name="Profile" component={ProfileNavigator} />
   </bottomTab.Navigator>
 );
 export const AppNavigator = () => (

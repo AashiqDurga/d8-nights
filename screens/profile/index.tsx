@@ -17,7 +17,7 @@ import {
 } from "@ui-kitten/components";
 import { ImageOverlay } from "./extra/image-overlay.component";
 import { ProfileSocial } from "./extra/profile-social.component";
-import { MessageCircleIcon, PersonAddIcon, PinIcon } from "./extra/icons";
+import { PinIcon } from "./extra/icons";
 import { Post, Profile } from "./extra/data";
 
 /*
@@ -60,11 +60,11 @@ export default ({ navigation }: any): React.ReactElement => {
   const styles = useStyleSheet(themedStyle);
 
   const onFollowButtonPress = (): void => {
-    navigation && navigation.goBack();
+    navigation && navigation.navigate("editProfile")
   };
 
   const onMessageButtonPress = (): void => {
-    navigation && navigation.navigate("Chat1");
+    // navigation && navigation.navigate("Chat1");
   };
 
   const renderFriendItem = (
