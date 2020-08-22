@@ -9,17 +9,20 @@ import {
   Text,
   BottomNavigation,
   BottomNavigationTab,
+  Icon,
 } from "@ui-kitten/components";
 
 const bottomTab = createBottomTabNavigator();
 
+const HomeIcon = (props: any) => <Icon {...props} name="home-outline" />;
+const ProfileIcon = (props: any) => <Icon {...props} name="person-outline" />;
 const BottomTabBar = ({ navigation, state }: any) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={(index) => navigation.navigate(state.routeNames[index])}
   >
-    <BottomNavigationTab title="Home" />
-    <BottomNavigationTab title="Profile" />
+    <BottomNavigationTab icon={HomeIcon} />
+    <BottomNavigationTab icon={ProfileIcon} />
   </BottomNavigation>
 );
 
