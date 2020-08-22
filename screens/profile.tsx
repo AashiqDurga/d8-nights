@@ -6,22 +6,13 @@ const BackIcon = (props:any) => (
   <Icon {...props} name='arrow-back' />
 );
 
-export const DetailsScreen = ({ navigation }:any) => {
-
-  const navigateBack = () => {
-    navigation.goBack();
-  };
-
-  const BackAction = () => (
-    <TopNavigationAction icon={BackIcon} onPress={navigateBack}/>
-  );
-
+export const ProfileScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TopNavigation title='MyApp' alignment='center' accessoryLeft={BackAction}/>
+      <TopNavigation title='D8 Nights' alignment='center' />
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text category='h1'>DETAILS</Text>
+        <Text category='h1'>Profile</Text>
       </Layout>
     </SafeAreaView>
   );
