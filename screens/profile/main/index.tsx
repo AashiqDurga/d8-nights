@@ -29,7 +29,7 @@ YellowBox.ignoreWarnings([
   "VirtualizedLists should never be nested inside plain ScrollViews",
 ]);
 
-const profile: Profile = Profile.helenKuper();
+const profile: Profile = Profile.jenAustin();
 
 const friends: Profile[] = [
   Profile.jenAustin(),
@@ -58,11 +58,11 @@ const EditIcon = (props: any) => <Icon name="edit-2-outline" {...props} />;
 export default ({ navigation }: any): React.ReactElement => {
   const styles = useStyleSheet(themedStyle);
 
-  const onFollowButtonPress = (): void => {
+  const onEditButtonPress = (): void => {
     navigation && navigation.navigate("editProfile");
   };
 
-  const onMessageButtonPress = (): void => {
+  const onSettingsButtonPress = (): void => {
     // navigation && navigation.navigate("Chat1");
   };
 
@@ -71,16 +71,7 @@ export default ({ navigation }: any): React.ReactElement => {
   ): React.ReactElement => (
     <View style={styles.friendItem}>
       <Avatar source={info.item.photo} />
-      <Text style={styles.friendName} category="c2">
-        {info.item.firstName}
-      </Text>
     </View>
-  );
-
-  const renderPostItem = (
-    info: ListRenderItemInfo<Post>
-  ): React.ReactElement => (
-    <ImageBackground style={styles.postItem} source={info.item.photo} />
   );
 
   return (
@@ -111,7 +102,7 @@ export default ({ navigation }: any): React.ReactElement => {
               <Button
                 style={styles.profileButton}
                 accessoryRight={EditIcon}
-                onPress={onFollowButtonPress}
+                onPress={onEditButtonPress}
               >
                 Edit
               </Button>
@@ -119,7 +110,7 @@ export default ({ navigation }: any): React.ReactElement => {
                 style={styles.profileButton}
                 status="control"
                 accessoryRight={SettingsIcon}
-                onPress={onMessageButtonPress}
+                onPress={onSettingsButtonPress}
               >
                 Settings
               </Button>
@@ -149,7 +140,7 @@ export default ({ navigation }: any): React.ReactElement => {
             {profile.description}
           </Text>
           <Text style={styles.sectionLabel} category="s1">
-            Friends
+            Selfies
           </Text>
           <List
             contentContainerStyle={styles.friendsList}
@@ -157,10 +148,6 @@ export default ({ navigation }: any): React.ReactElement => {
             data={friends}
             renderItem={renderFriendItem}
           />
-          <Text style={styles.sectionLabel} category="s1">
-            Shots
-          </Text>
-          <List data={posts} numColumns={3} renderItem={renderPostItem} />
         </ScrollView>
       )}
     </SafeAreaConsumer>
