@@ -10,7 +10,7 @@ import {
   PersonIcon,
   TwitterIcon,
 } from './extra/icons';
-import { KeyboardAvoidingView } from '../../matches/chat/extra/keyboard-avoiding-view.component';
+import { KeyboardAvoidingView } from './extra/3rd-party';
 
 export default ({ navigation }): React.ReactElement => {
 
