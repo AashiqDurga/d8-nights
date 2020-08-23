@@ -67,8 +67,7 @@ export default class Deck extends React.Component {
       outputRange: [1, 0.8, 1],
       extrapolate: "clamp",
     });
-  }
-  componentWillMount() {
+
     this.PanResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onPanResponderMove: (evt, gestureState) => {
@@ -78,6 +77,7 @@ export default class Deck extends React.Component {
         if (gestureState.dx > 120) {
           Animated.spring(this.position, {
             toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
+            useNativeDriver: true,
           }).start(() => {
             this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({ x: 0, y: 0 });
@@ -86,6 +86,7 @@ export default class Deck extends React.Component {
         } else if (gestureState.dx < -120) {
           Animated.spring(this.position, {
             toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+            useNativeDriver: true,
           }).start(() => {
             this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({ x: 0, y: 0 });
@@ -95,6 +96,7 @@ export default class Deck extends React.Component {
           Animated.spring(this.position, {
             toValue: { x: 0, y: 0 },
             friction: 4,
+            useNativeDriver: true,
           }).start();
         }
       },
@@ -181,7 +183,7 @@ export default class Deck extends React.Component {
             style={[
               {
                 opacity: this.nextCardOpacity,
-                transform: [{ scale: this.nextCardScale}],
+                transform: [{ scale: this.nextCardScale }],
                 height: SCREEN_HEIGHT - 120,
                 width: SCREEN_WIDTH,
                 padding: 10,
