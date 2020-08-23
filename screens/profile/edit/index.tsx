@@ -11,6 +11,7 @@ import { ProfileAvatar } from "./extra/profile-avatar.component";
 import { ProfileSetting } from "./extra/profile-setting.component";
 import { CameraIcon } from "./extra/icons";
 import { Profile } from "./extra/data";
+import { SafeAreaConsumer } from "react-native-safe-area-context";
 
 const profile: Profile = Profile.jenniferGreen();
 const cameraIcon = (props:any) => (
@@ -28,10 +29,16 @@ export default ({ navigation }: any): React.ReactElement => {
   );
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
+
+  <SafeAreaConsumer>
+      {(insets) => (
+        <ScrollView
+          style={{
+            flex: 1,
+            backgroundColor: "background-basic-color-2",
+            paddingTop: insets?.top,
+          }}
+        >
       <ProfileAvatar
         style={styles.photo}
         source={profile.photo}
@@ -84,6 +91,8 @@ export default ({ navigation }: any): React.ReactElement => {
         DONE
       </Button>
     </ScrollView>
+    )}
+    </SafeAreaConsumer>
   );
 };
 

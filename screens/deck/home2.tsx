@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView } from 'react-native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Layout, Divider, TopNavigation } from '@ui-kitten/components/ui';
 const Users = [
   { id: "1", uri: require('./assets/1.jpg') },
   { id: "2", uri: require('./assets/2.jpg') },
@@ -159,19 +160,26 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View style={{ height: 60 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+      <TopNavigation title="D8 Nights" alignment="center" />
+      <Divider />
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+           {this.renderUsers()}
+      </Layout>
+    </SafeAreaView>
+      // <View style={{ flex: 1 }}>
+      //   <View style={{ height: 60 }}>
 
-        </View>
-        <View style={{ flex: 1 }}>
-          {this.renderUsers()}
-        </View>
-        <View style={{ height: 60 }}>
+      //   </View>
+      //   <View style={{ flex: 1 }}>
+      //     {this.renderUsers()}
+      //   </View>
+      //   <View style={{ height: 60 }}>
 
-        </View>
+      //   </View>
 
 
-      </View>
+      // </View>
 
     );
   }

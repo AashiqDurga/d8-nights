@@ -19,6 +19,7 @@ import { ImageOverlay } from "./extra/image-overlay.component";
 import { ProfileSocial } from "./extra/profile-social.component";
 import { PinIcon } from "./extra/icons";
 import { Post, Profile } from "./extra/data";
+import { SafeAreaConsumer } from "react-native-safe-area-context";
 
 /*
  * Will warn because container view is ScrollView that contains 3 List components inside.
@@ -50,17 +51,15 @@ const posts: Post[] = [
   Post.style1(),
   Post.plant1(),
 ];
-const SettingsIcon = (props:any) => (
-  <Icon name='settings-outline' {...props} />
-)
-const EditIcon = (props:any) => (
-  <Icon name='edit-2-outline' {...props} />
-)
+const SettingsIcon = (props: any) => (
+  <Icon name="settings-outline" {...props} />
+);
+const EditIcon = (props: any) => <Icon name="edit-2-outline" {...props} />;
 export default ({ navigation }: any): React.ReactElement => {
   const styles = useStyleSheet(themedStyle);
 
   const onFollowButtonPress = (): void => {
-    navigation && navigation.navigate("editProfile")
+    navigation && navigation.navigate("editProfile");
   };
 
   const onMessageButtonPress = (): void => {
@@ -85,76 +84,86 @@ export default ({ navigation }: any): React.ReactElement => {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <ImageOverlay
-        style={styles.header}
-        source={require("./assets/image-background.jpg")}
-      >
-        <Avatar style={styles.profileAvatar} source={profile.photo} />
-        <Text style={styles.profileName} category="h5" status="control">
-          {profile.fullName}
-        </Text>
-        <View style={styles.locationContainer}>
-          <PinIcon />
-          <Text style={styles.location} status="control">
-            {profile.location}
+    <SafeAreaConsumer>
+      {(insets) => (
+        <ScrollView
+          style={{
+            flex: 1,
+            backgroundColor: "background-basic-color-2",
+            paddingTop: insets?.top,
+          }}
+        >
+          <ImageOverlay
+            style={styles.header}
+            source={require("./assets/image-background.jpg")}
+          >
+            <Avatar style={styles.profileAvatar} source={profile.photo} />
+            <Text style={styles.profileName} category="h5" status="control">
+              {profile.fullName}
+            </Text>
+            <View style={styles.locationContainer}>
+              <PinIcon />
+              <Text style={styles.location} status="control">
+                {profile.location}
+              </Text>
+            </View>
+            <View style={styles.profileButtonsContainer}>
+              <Button
+                style={styles.profileButton}
+                accessoryRight={EditIcon}
+                onPress={onFollowButtonPress}
+              >
+                Edit
+              </Button>
+              <Button
+                style={styles.profileButton}
+                status="control"
+                accessoryRight={SettingsIcon}
+                onPress={onMessageButtonPress}
+              >
+                Settings
+              </Button>
+            </View>
+            <View style={styles.socialsContainer}>
+              <ProfileSocial
+                style={styles.profileSocial}
+                hint="Followers"
+                value={`${profile.followers}`}
+              />
+              <ProfileSocial
+                style={styles.profileSocial}
+                hint="Following"
+                value={`${profile.following}`}
+              />
+              <ProfileSocial
+                style={styles.profileSocial}
+                hint="Posts"
+                value={`${profile.posts}`}
+              />
+            </View>
+          </ImageOverlay>
+          <Text style={styles.sectionLabel} category="s1">
+            About
           </Text>
-        </View>
-        <View style={styles.profileButtonsContainer}>
-          <Button
-            style={styles.profileButton}
-            accessoryRight={EditIcon}
-            onPress={onFollowButtonPress}
-          >
-            Edit
-          </Button>
-          <Button
-            style={styles.profileButton}
-            status="control"
-            accessoryRight={SettingsIcon}
-            onPress={onMessageButtonPress}
-          >
-            Settings
-          </Button>
-        </View>
-        <View style={styles.socialsContainer}>
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Followers"
-            value={`${profile.followers}`}
+          <Text style={styles.profileDescription} appearance="hint">
+            {profile.description}
+          </Text>
+          <Text style={styles.sectionLabel} category="s1">
+            Friends
+          </Text>
+          <List
+            contentContainerStyle={styles.friendsList}
+            horizontal={true}
+            data={friends}
+            renderItem={renderFriendItem}
           />
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Following"
-            value={`${profile.following}`}
-          />
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Posts"
-            value={`${profile.posts}`}
-          />
-        </View>
-      </ImageOverlay>
-      <Text style={styles.sectionLabel} category="s1">
-        About
-      </Text>
-      <Text style={styles.profileDescription} appearance="hint">
-        {profile.description}
-      </Text>
-      <Text style={styles.sectionLabel} category="s1">
-        Friends
-      </Text>
-      <List
-        contentContainerStyle={styles.friendsList}
-        horizontal={true}
-        data={friends}
-        renderItem={renderFriendItem}
-      />
-      <Text style={styles.sectionLabel} category="s1">
-        Shots
-      </Text>
-      <List data={posts} numColumns={3} renderItem={renderPostItem} />
-    </ScrollView>
+          <Text style={styles.sectionLabel} category="s1">
+            Shots
+          </Text>
+          <List data={posts} numColumns={3} renderItem={renderPostItem} />
+        </ScrollView>
+      )}
+    </SafeAreaConsumer>
   );
 };
 
