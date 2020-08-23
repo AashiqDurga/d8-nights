@@ -1,10 +1,17 @@
-import React from 'react';
-import { ImageSourcePropType, Keyboard, Platform } from 'react-native';
-import { Button, Input, StyleService, useStyleSheet, Icon } from '@ui-kitten/components';
-import { KeyboardAvoidingView } from './extra/keyboard-avoiding-view.component';
-import { Chat } from './extra/chat.component';
-import { AttachmentsMenu } from './extra/attachments-menu.component';
-import { Message } from './extra/data';
+import React from "react";
+import { ImageSourcePropType, Keyboard, Platform } from "react-native";
+import {
+  Button,
+  Input,
+  StyleService,
+  useStyleSheet,
+  Icon,
+} from "@ui-kitten/components";
+import { KeyboardAvoidingView } from "./extra/keyboard-avoiding-view.component";
+import { Chat } from "./extra/chat.component";
+import { AttachmentsMenu } from "./extra/attachments-menu.component";
+import { Message } from "./extra/data";
+import { SafeAreaConsumer } from "react-native-safe-area-context";
 
 const initialMessages: Message[] = [
   Message.howAreYou(),
@@ -18,33 +25,31 @@ const initialMessages: Message[] = [
 ];
 
 const galleryAttachments: ImageSourcePropType[] = [
-  require('./assets/image-attachment-1.png'),
-  require('./assets/image-attachment-2.jpg'),
-  require('./assets/image-attachment-1.png'),
-  require('./assets/image-attachment-2.jpg'),
+  require("./assets/image-attachment-1.png"),
+  require("./assets/image-attachment-2.jpg"),
+  require("./assets/image-attachment-1.png"),
+  require("./assets/image-attachment-2.jpg"),
 ];
 
-const keyboardOffset = (height: number): number => Platform.select({
-  android: 0,
-  ios: height,
-});
+const keyboardOffset = (height: number): number =>
+  Platform.select({
+    android: 0,
+    ios: height,
+  });
 
-const PlusIcon = (props:any) => (
-  <Icon name='plus-circle-outline' {...props} />
-);
-const MicIcon = (props:any) => (
-  <Icon name='mic-outline' {...props} />
-);
-const PaperPlaneIcon = (props:any) => (
-  <Icon name='paper-plane-outline' {...props} />
+const PlusIcon = (props: any) => <Icon name="plus-circle-outline" {...props} />;
+const MicIcon = (props: any) => <Icon name="mic-outline" {...props} />;
+const PaperPlaneIcon = (props: any) => (
+  <Icon name="paper-plane-outline" {...props} />
 );
 export default (): React.ReactElement => {
-
   const styles = useStyleSheet(themedStyles);
 
   const [messages, setMessages] = React.useState<Message[]>(initialMessages);
   const [message, setMessage] = React.useState<string>(null);
-  const [attachmentsMenuVisible, setAttachmentsMenuVisible] = React.useState<boolean>(false);
+  const [attachmentsMenuVisible, setAttachmentsMenuVisible] = React.useState<
+    boolean
+  >(false);
 
   const sendButtonEnabled = (): boolean => {
     return message && message.length > 0;
@@ -55,7 +60,7 @@ export default (): React.ReactElement => {
   };
 
   const onSendButtonPress = (): void => {
-    setMessages([...messages, new Message(message, 'now', true, null)]);
+    setMessages([...messages, new Message(message, "now", true, null)]);
     setMessage(null);
     Keyboard.dismiss();
   };
@@ -75,15 +80,20 @@ export default (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Chat
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
-        followEnd={true}
-        data={messages}
-      />
+      <SafeAreaConsumer>
+        {(insets) => (
+          <Chat
+            style={{ flex: 1, paddingTop: insets?.top }}
+            contentContainerStyle={styles.listContent}
+            followEnd={true}
+            data={messages}
+          />
+        )}
+      </SafeAreaConsumer>
       <KeyboardAvoidingView
         style={styles.messageInputContainer}
-        offset={keyboardOffset}>
+        offset={keyboardOffset}
+      >
         <Button
           style={[styles.iconButton, styles.attachButton]}
           onPress={toggleAttachmentsMenu}
@@ -91,13 +101,13 @@ export default (): React.ReactElement => {
         />
         <Input
           style={styles.messageInput}
-          placeholder='Message...'
+          placeholder="Message..."
           value={message}
           onChangeText={setMessage}
           accessoryRight={MicIcon}
         />
         <Button
-          appearance='ghost'
+          appearance="ghost"
           style={[styles.iconButton, styles.sendButton]}
           accessoryRight={PaperPlaneIcon}
           disabled={!sendButtonEnabled()}
@@ -121,16 +131,16 @@ const themedStyles = StyleService.create({
     paddingHorizontal: 8,
   },
   footer: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
   },
   messageInputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 8,
     paddingVertical: 16,
-    backgroundColor: 'background-basic-color-1',
+    backgroundColor: "background-basic-color-1",
   },
   attachButton: {
     borderRadius: 24,

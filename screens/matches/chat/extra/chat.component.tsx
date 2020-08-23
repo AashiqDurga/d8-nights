@@ -1,13 +1,14 @@
-import React from 'react';
-import { ListRenderItemInfo, StyleSheet } from 'react-native';
-import { List, ListProps, StyleType } from '@ui-kitten/components';
-import { ChatMessageContent } from './chat-message-content.component';
-import { ChatMessageGroup } from './chat-message-group.component';
-import { ChatMessage } from './chat-message.component';
-import { ChatService } from './chat.service';
-import { Message } from './data';
+import React from "react";
+import { ListRenderItemInfo, StyleSheet } from "react-native";
+import { List, ListProps, StyleType } from "@ui-kitten/components";
+import { ChatMessageContent } from "./chat-message-content.component";
+import { ChatMessageGroup } from "./chat-message-group.component";
+import { ChatMessage } from "./chat-message.component";
+import { ChatService } from "./chat.service";
+import { Message } from "./data";
+import { SafeAreaConsumer } from "react-native-safe-area-context";
 
-export interface ChatProps extends Omit<ListProps, 'renderItem'> {
+export interface ChatProps extends Omit<ListProps, "renderItem"> {
   data: Message[];
   followEnd: boolean;
 }
@@ -15,7 +16,6 @@ export interface ChatProps extends Omit<ListProps, 'renderItem'> {
 const chatService: ChatService = new ChatService();
 
 export const Chat = (props: ChatProps): React.ReactElement => {
-
   const listRef: React.RefObject<any> = React.useRef();
   let contentHeight: number = 0;
 
@@ -42,25 +42,30 @@ export const Chat = (props: ChatProps): React.ReactElement => {
 
     props.followEnd && setTimeout(scrollToEnd, 0);
 
-    listProps.onContentSizeChange && listProps.onContentSizeChange(width, height);
+    listProps.onContentSizeChange &&
+      listProps.onContentSizeChange(width, height);
   };
 
-  const renderMessageContent = (message: Message, style: StyleType): React.ReactElement => (
-    <ChatMessageContent style={style.container}>
-      {message}
-    </ChatMessageContent>
+  const renderMessageContent = (
+    message: Message,
+    style: StyleType
+  ): React.ReactElement => (
+    <ChatMessageContent style={style.container}>{message}</ChatMessageContent>
   );
 
   const renderMessage = (message: Message): React.ReactElement => (
     <ChatMessage
       style={styles.message}
       message={message}
-      shouldShowIndicator={shouldShowMessageIndicator(message)}>
+      shouldShowIndicator={shouldShowMessageIndicator(message)}
+    >
       {renderMessageContent}
     </ChatMessage>
   );
 
-  const renderMessageGroup = (info: ListRenderItemInfo<Message[]>): React.ReactElement => (
+  const renderMessageGroup = (
+    info: ListRenderItemInfo<Message[]>
+  ): React.ReactElement => (
     <ChatMessageGroup
       style={styles.group}
       data={info.item}
@@ -69,20 +74,28 @@ export const Chat = (props: ChatProps): React.ReactElement => {
   );
 
   return (
-    <List
-      ref={listRef}
-      {...listProps}
-      data={chatService.createMessageGroups(data)}
-      contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
-      onContentSizeChange={onContentSizeChange}
-      renderItem={renderMessageGroup}
-    />
+    <SafeAreaConsumer>
+      {(insets) => (
+        <List
+          style={{ flex: 1, paddingTop: insets?.top }}
+          ref={listRef}
+          {...listProps}
+          data={chatService.createMessageGroups(data)}
+          contentContainerStyle={[
+            styles.contentContainer,
+            contentContainerStyle,
+          ]}
+          onContentSizeChange={onContentSizeChange}
+          renderItem={renderMessageGroup}
+        />
+      )}
+    </SafeAreaConsumer>
   );
 };
 
 const styles = StyleSheet.create({
   contentContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   group: {
     marginVertical: 8,

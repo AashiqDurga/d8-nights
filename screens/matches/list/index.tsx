@@ -4,7 +4,7 @@ import { Input, Layout, List, StyleService, useStyleSheet } from '@ui-kitten/com
 import { MessageItem } from './extra/message-item.component';
 import { SearchIcon } from './extra/icons';
 import { Message } from './extra/data';
-import { SafeAreaView } from "react-native";
+import { SafeAreaConsumer } from 'react-native-safe-area-context';
 
 const initialMessages: Message[] = [
   Message.howAreYou(),
@@ -16,6 +16,7 @@ export default ({ navigation }): React.ReactElement => {
 
   const styles = useStyleSheet(themedStyles);
   const [searchQuery, setSearchQuery] = React.useState<string>();
+
 
   const onItemPress = (index: number): void => {
     navigation && navigation.navigate('chat');
@@ -42,19 +43,25 @@ export default ({ navigation }): React.ReactElement => {
   );
 
   return (
+    <SafeAreaConsumer>
+    {insets => 
     <List
-      style={styles.list}
+      style={{flex: 1, paddingTop: insets?.top}}
       data={initialMessages}
       renderItem={renderItem}
       ListHeaderComponent={renderHeader}
     />
+}
+  </SafeAreaConsumer>
   );
 };
 
 const themedStyles = StyleService.create({
+
   list: {
     flex: 1,
   },
+ 
   header: {
     paddingHorizontal: 16,
     paddingTop: 16,
