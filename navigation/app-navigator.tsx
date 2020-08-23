@@ -11,12 +11,11 @@ import { ProfileNavigator } from "./profile-navigator";
 import { MatchesNavigator } from "./matches-navigator";
 import { AuthNavigator } from "./auth-navigator";
 import { createStackNavigator } from "@react-navigation/stack";
-
 const bottomTab = createBottomTabNavigator();
 const stack = createStackNavigator();
 
-const HomeIcon = (props: any) => <Icon {...props} name="home-outline" />;
-const ChatIcon = (props: any) => <Icon {...props} name="message-square-outline" />;
+const HomeIcon = (props: any) => <Icon {...props} name="heart-outline" />;
+const ChatIcon = (props: any) => <Icon {...props} name="message-circle-outline" />;
 const ProfileIcon = (props: any) => <Icon {...props} name="person-outline" />;
 
 const BottomTabBar = ({ navigation, state }: any) => (
