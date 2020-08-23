@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import  DeckScreen  from "../screens/deck/home2";
+import  DeckScreen  from "../screens/deck/deck";
 import {
   BottomNavigation,
   BottomNavigationTab,

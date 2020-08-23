@@ -22,7 +22,7 @@ const Users = [
   { id: "5", uri: require("./assets/5.jpg") },
 ];
 
-export default class App extends React.Component {
+export default class Deck extends React.Component {
   constructor() {
     super();
 
@@ -132,15 +132,12 @@ export default class App extends React.Component {
             >
               <Text
                 style={{
-                  borderWidth: 1,
-                  borderColor: "green",
-                  color: "green",
-                  fontSize: 32,
+                  fontSize: 62,
                   fontWeight: "800",
                   padding: 10,
                 }}
               >
-                LIKE
+                😍
               </Text>
             </Animated.View>
 
@@ -156,15 +153,12 @@ export default class App extends React.Component {
             >
               <Text
                 style={{
-                  borderWidth: 1,
-                  borderColor: "red",
-                  color: "red",
-                  fontSize: 32,
+                  fontSize: 62,
                   fontWeight: "800",
                   padding: 10,
                 }}
               >
-                NOPE
+                😥
               </Text>
             </Animated.View>
 
@@ -239,7 +233,7 @@ export default class App extends React.Component {
                   padding: 10,
                 }}
               >
-                NOPE
+                NO D8
               </Text>
             </Animated.View>
 
