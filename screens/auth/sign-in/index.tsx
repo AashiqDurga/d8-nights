@@ -19,11 +19,11 @@ export default ({ navigation }): React.ReactElement => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.goBack();
+    navigation && navigation.navigate("Home");
   };
 
   const onSignUpButtonPress = (): void => {
-    navigation && navigation.navigate('SignUp4');
+    navigation && navigation.navigate('signUp');
   };
 
   const onForgotPasswordButtonPress = (): void => {
@@ -56,7 +56,7 @@ export default ({ navigation }): React.ReactElement => {
           <Input
             status='control'
             placeholder='Email'
-            icon={PersonIcon}
+            accessoryRight={PersonIcon}
             value={email}
             onChangeText={setEmail}
           />
@@ -64,7 +64,7 @@ export default ({ navigation }): React.ReactElement => {
             style={styles.passwordInput}
             status='control'
             placeholder='Password'
-            icon={passwordVisible ? EyeIcon : EyeOffIcon}
+            accessoryRight={passwordVisible ? EyeIcon : EyeOffIcon}
             value={password}
             secureTextEntry={!passwordVisible}
             onChangeText={setPassword}
@@ -97,19 +97,19 @@ export default ({ navigation }): React.ReactElement => {
               appearance='ghost'
               status='control'
               size='giant'
-              icon={GoogleIcon}
+              accessoryRight={GoogleIcon}
             />
             <Button
               appearance='ghost'
               status='control'
               size='giant'
-              icon={FacebookIcon}
+              accessoryRight={FacebookIcon}
             />
             <Button
               appearance='ghost'
               status='control'
               size='giant'
-              icon={TwitterIcon}
+              accessoryRight={TwitterIcon}
             />
           </View>
         </View>

@@ -33,7 +33,7 @@ const BottomTabBar = ({ navigation, state }: any) => (
 
 const HomeNavigator = () => (
   <stack.Navigator headerMode='none'>
-    <stack.Screen name='Home' component={AuthNavigator}/>
+    <stack.Screen name='Auth' component={AuthNavigator}/>
   </stack.Navigator>
 );
 const TabNavigator = () => (
