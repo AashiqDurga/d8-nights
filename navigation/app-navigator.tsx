@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../screens/home";
+import  DeckScreen  from "../screens/deck/home2";
 import {
   BottomNavigation,
   BottomNavigationTab,
@@ -29,7 +30,7 @@ const BottomTabBar = ({ navigation, state }: any) => (
 const TabNavigator = () => (
   <bottomTab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
     <bottomTab.Screen name="Matches" component={MatchesNavigator} />
-    <bottomTab.Screen name="Home" component={HomeScreen} />
+    <bottomTab.Screen name="Home" component={DeckScreen} />
     <bottomTab.Screen name="Profile" component={ProfileNavigator} />
   </bottomTab.Navigator>
 );
