@@ -11,6 +11,7 @@ import { ProfileNavigator } from "./profile-navigator";
 import { MatchesNavigator } from "./matches-navigator";
 import { AuthNavigator } from "./auth-navigator";
 import { createStackNavigator } from "@react-navigation/stack";
+
 const bottomTab = createBottomTabNavigator();
 const stack = createStackNavigator();
 
