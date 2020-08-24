@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import {
   Button,
@@ -20,17 +20,28 @@ import {
 } from "./extra/icons";
 import { KeyboardAvoidingView } from "./extra/3rd-party";
 
+import { Auth } from "aws-amplify";
+
+const signUp = async (email: string, password: string) => {
+  try {
+    const { user } = await Auth.signUp({
+      username: email,
+      password,
+    });
+    console.log(user);
+  } catch (error) {
+    console.log("error signing up:", error);
+  }
+};
+
 export default ({ navigation }): React.ReactElement => {
-  const [firstName, setFirstName] = React.useState<string>();
-  const [lastName, setLastName] = React.useState<string>();
-  const [email, setEmail] = React.useState<string>();
-  const [password, setPassword] = React.useState<string>();
-  const [dob, setDob] = React.useState<Date>();
-  const [termsAccepted, setTermsAccepted] = React.useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const styles = useStyleSheet(themedStyles);
 
   const onSignUpButtonPress = (): void => {
-    navigation && navigation.goBack();
+    signUp(email, password);
   };
 
   const onSignInButtonPress = (): void => {
@@ -103,28 +114,6 @@ export default ({ navigation }): React.ReactElement => {
       <Text style={styles.emailSignLabel}>Sign up with Email</Text>
       <View style={[styles.container, styles.formContainer]}>
         <Input
-          placeholder="Ally"
-          label="FIRST NAME"
-          autoCapitalize="words"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <Input
-          style={styles.formInput}
-          placeholder="Watsan"
-          label="LAST NAME"
-          autoCapitalize="words"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        <Datepicker
-          style={styles.formInput}
-          placeholder="18/10/1995"
-          label="Date of Birth"
-          date={dob}
-          onSelect={setDob}
-        />
-        <Input
           style={styles.formInput}
           placeholder="ally.watsan@gmail.com"
           label="EMAIL"
@@ -144,7 +133,8 @@ export default ({ navigation }): React.ReactElement => {
           checked={termsAccepted}
           onChange={(checked: boolean) => setTermsAccepted(checked)}
         >
-          By creating an account, I agree to the D8 nights Terms of Use and Privacy Policy
+          By creating an account, I agree to the D8 nights Terms of Use and
+          Privacy Policy
         </CheckBox>
       </View>
       <Button
