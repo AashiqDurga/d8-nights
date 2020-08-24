@@ -7,7 +7,7 @@ import { default as theme } from "./theme.json";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const state = {
-  userToken: ""
+  userToken: null
 };
 export default () => (
   <>

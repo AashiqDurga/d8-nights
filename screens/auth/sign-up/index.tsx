@@ -34,7 +34,7 @@ export default ({ navigation }): React.ReactElement => {
   };
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.navigate("SignIn1");
+    navigation && navigation.navigate("signIn");
   };
 
   return (
