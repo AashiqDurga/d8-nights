@@ -5,6 +5,9 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { AppNavigator, Auth } from "./navigation/app-navigator";
 import { default as theme } from "./theme.json";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+Amplify.configure(config)
 
 const state = {
   userToken: null
