@@ -7,6 +7,7 @@ import { default as theme } from "./theme.json";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Amplify, { Hub } from "aws-amplify";
 import config from "./aws-exports";
+import { NavigationContainer } from "@react-navigation/native";
 Amplify.configure(config);
 
 const app = () => {
@@ -24,27 +25,22 @@ const app = () => {
         console.log("a user has signed out!");
       }
     });
-  }, []);
+  }, [signedIn]);
 
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
         <SafeAreaProvider>
-          {signedIn == false ? (
-            // No token found, user isn't signed in
-            <Auth />
-          ) : (
-            // User is signed in
-            <>
-              <IconRegistry icons={EvaIconsPack} />
-              <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-                <SafeAreaProvider>
-                  <AppNavigator />
-                </SafeAreaProvider>
-              </ApplicationProvider>
-            </>
-          )}
+          <NavigationContainer>
+            {signedIn == false ? (
+              // No token found, user isn't signed in
+              <Auth />
+            ) : (
+              // User is signed in
+              <AppNavigator />
+            )}
+          </NavigationContainer>
         </SafeAreaProvider>
       </ApplicationProvider>
     </>

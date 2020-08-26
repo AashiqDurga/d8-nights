@@ -3,7 +3,6 @@ import { View } from "react-native";
 import {
   Button,
   CheckBox,
-  Datepicker,
   Divider,
   Input,
   StyleService,
@@ -29,6 +28,7 @@ const signUp = async (email: string, password: string) => {
       password,
     });
     console.log(user);
+    return true;
   } catch (error) {
     console.log("error signing up:", error);
   }
@@ -41,7 +41,11 @@ export default ({ navigation }): React.ReactElement => {
   const styles = useStyleSheet(themedStyles);
 
   const onSignUpButtonPress = (): void => {
-    signUp(email, password);
+    signUp(email, password).then((hasSignedUp) => {
+      if (hasSignedUp) {
+        navigation && navigation.navigate("confirm",{email});
+      }
+    });
   };
 
   const onSignInButtonPress = (): void => {

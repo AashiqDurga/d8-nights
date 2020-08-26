@@ -19,7 +19,7 @@ export default ({ navigation }): React.ReactElement => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.navigate("Home");
+    navigation && navigation.navigate('Home');
   };
 
   const onSignUpButtonPress = (): void => {
