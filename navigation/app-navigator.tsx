@@ -40,11 +40,11 @@ export const Auth = () => (
 );
 export const AppNavigator = () => (
   <bottomTab.Navigator
-    initialRouteName="Home"
+    initialRouteName="Deck"
     tabBar={(props) => <BottomTabBar {...props} />}
   >
     <bottomTab.Screen name="Matches" component={MatchesNavigator} />
-    <bottomTab.Screen name="Home" component={DeckScreen} />
+    <bottomTab.Screen name="Deck" component={DeckScreen} />
     <bottomTab.Screen name="Profile" component={ProfileNavigator} />
   </bottomTab.Navigator>
 );
