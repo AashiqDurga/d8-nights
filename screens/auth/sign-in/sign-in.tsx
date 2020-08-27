@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { Button, Input, Text } from "@ui-kitten/components";
+import { StyleSheet, View, Alert } from "react-native";
+import { Button, Input, Text } from "@ui-kitten/components/ui";
 import { ImageOverlay } from "./extra/image-overlay.component";
 import {
   EyeIcon,
@@ -18,7 +18,33 @@ export default ({ navigation }): React.ReactElement => {
   const [password, setPassword] = React.useState<string>("");
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
+  const validateEmail = (email: string) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+
+    return re.test(email);
+  };
+  const validatePassword = (email: string) => {
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+
+    return re.test(email);
+  };
   const onSignInButtonPress = async (): Promise<void> => {
+    if (!validateEmail(email)) {
+      Alert.alert(
+        "Invalid Email 😱",
+        "Please review the email address you have entered."
+      );
+      return;
+    }
+var message = `foo /n foo`
+    if (!validatePassword(email)) {
+      Alert.alert(
+        "Secure your Password 🔒",
+        "Please ensure your password has the following: one digit, one lowercase character, one uppercase character, one special character and longer that 8 characters."
+      );
+      return;
+    }
+
     try {
       const user = await Auth.signIn(email, password).then(() => {
         console.log(user);
