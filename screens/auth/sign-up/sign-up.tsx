@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 import {
   Button,
   CheckBox,
@@ -20,6 +20,7 @@ import {
 import { KeyboardAvoidingView } from "./extra/3rd-party";
 
 import { Auth } from "aws-amplify";
+import { validateEmail, validatePassword } from "../validation/validate";
 
 const signUp = async (email: string, password: string) => {
   try {
@@ -41,6 +42,21 @@ export default ({ navigation }): React.ReactElement => {
   const styles = useStyleSheet(themedStyles);
 
   const onSignUpButtonPress = (): void => {
+    if (!validateEmail(email)) {
+      Alert.alert(
+        "Invalid Email 😱",
+        "Please review the email address you have entered."
+      );
+      return;
+    }
+
+    if (!validatePassword(email)) {
+      Alert.alert(
+        "Insecure Password 🔒",
+        "Please ensure you have the minimum password requirements."
+      );
+      return;
+    }
     signUp(email, password).then((hasSignedUp) => {
       if (hasSignedUp) {
         navigation && navigation.navigate("confirm",{email});

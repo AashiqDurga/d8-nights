@@ -12,22 +12,13 @@ import {
 } from "./extra/icons";
 import { KeyboardAvoidingView } from "./extra/3rd-party";
 import { Auth } from "aws-amplify";
+import { validateEmail } from "../validation/validate";
 
 export default ({ navigation }): React.ReactElement => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
-  const validateEmail = (email: string) => {
-    var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
-
-    return re.test(email);
-  };
-  const validatePassword = (email: string) => {
-    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-
-    return re.test(email);
-  };
   const onSignInButtonPress = async (): Promise<void> => {
     if (!validateEmail(email)) {
       Alert.alert(
@@ -36,15 +27,6 @@ export default ({ navigation }): React.ReactElement => {
       );
       return;
     }
-var message = `foo /n foo`
-    if (!validatePassword(email)) {
-      Alert.alert(
-        "Secure your Password 🔒",
-        "Please ensure your password has the following: one digit, one lowercase character, one uppercase character, one special character and longer that 8 characters."
-      );
-      return;
-    }
-
     try {
       const user = await Auth.signIn(email, password).then(() => {
         console.log(user);
@@ -52,6 +34,7 @@ var message = `foo /n foo`
       });
     } catch (error) {
       console.log("error signing in", error);
+      Alert.alert("😔",error.message)
     }
   };
 
