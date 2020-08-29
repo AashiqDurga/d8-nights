@@ -1,7 +1,6 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import  DeckScreen  from "../screens/deck/deck";
+import DeckScreen from "../screens/deck/deck";
 import {
   BottomNavigation,
   BottomNavigationTab,
@@ -16,7 +15,9 @@ const bottomTab = createBottomTabNavigator();
 const stack = createStackNavigator();
 
 const HomeIcon = (props: any) => <Icon {...props} name="heart-outline" />;
-const ChatIcon = (props: any) => <Icon {...props} name="message-circle-outline" />;
+const ChatIcon = (props: any) => (
+  <Icon {...props} name="message-circle-outline" />
+);
 const ProfileIcon = (props: any) => <Icon {...props} name="person-outline" />;
 
 const BottomTabBar = ({ navigation, state }: any) => (
@@ -30,27 +31,21 @@ const BottomTabBar = ({ navigation, state }: any) => (
   </BottomNavigation>
 );
 
-const HomeNavigator = () => (
-  <stack.Navigator headerMode='none'>
-    <stack.Screen name='Auth' component={AuthNavigator}/>
+export const AuthNav = () => (
+  <stack.Navigator headerMode="none">
+    <stack.Screen name="Auth" component={AuthNavigator} />
+    <stack.Screen name="Home" component={AppNavigator} />
   </stack.Navigator>
 );
-const TabNavigator = () => (
-  <bottomTab.Navigator initialRouteName="Home" tabBar={(props) => <BottomTabBar {...props} />}>
+export const AppNavigator = () => (
+  <bottomTab.Navigator
+    initialRouteName="Deck"
+    tabBar={(props) => <BottomTabBar {...props} />}
+  >
     <bottomTab.Screen name="Matches" component={MatchesNavigator} />
-    <bottomTab.Screen name="Home" component={DeckScreen} />
+    <bottomTab.Screen name="Deck" component={DeckScreen} />
     <bottomTab.Screen name="Profile" component={ProfileNavigator} />
+    <stack.Screen name="Auth" component={AuthNavigator} />
   </bottomTab.Navigator>
 );
 
-export const Auth = () => (
-  <NavigationContainer>
-    <HomeNavigator />
-  </NavigationContainer>
-);
-
-export const AppNavigator = () => (
-  <NavigationContainer>
-    <TabNavigator />
-  </NavigationContainer>
-);

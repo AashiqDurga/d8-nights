@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-d8nights-dev-203001-authRole",
+            "UnauthRoleArn": "arn:aws:iam::180543367711:role/amplify-d8nights-dev-203001-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::180543367711:role/amplify-d8nights-dev-203001-authRole",
+            "Region": "ap-southeast-2",
+            "DeploymentBucketName": "amplify-d8nights-dev-203001-deployment",
+            "UnauthRoleName": "amplify-d8nights-dev-203001-unauthRole",
+            "StackName": "amplify-d8nights-dev-203001",
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:180543367711:stack/amplify-d8nights-dev-203001/02401600-e5e4-11ea-962f-0223254a71be",
+            "AmplifyAppId": "d31p316v449p2f"
+        },
+        "categories": {
+            "auth": {
+                "d8nights3e98c673": {}
+            }
+        }
+    }
+}
