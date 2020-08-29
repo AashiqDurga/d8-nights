@@ -66,7 +66,7 @@ export default ({ navigation }: any): React.ReactElement => {
 
   async function signOut() {
     try {
-      await Auth.signOut({ global: true }).then( navigation && navigation.navigate("signIn"));
+      await Auth.signOut().then( navigation && navigation.navigate("signIn"));
     } catch (error) {
       console.log("error signing out: ", error);
       Alert.alert("Oops",error.message)
