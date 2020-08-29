@@ -50,7 +50,7 @@ export default ({ navigation }): React.ReactElement => {
       return;
     }
 
-    if (!validatePassword(email)) {
+    if (!validatePassword(password)) {
       Alert.alert(
         "Insecure Password 🔒",
         "Please ensure you have the minimum password requirements."

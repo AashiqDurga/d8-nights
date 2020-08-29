@@ -6,8 +6,8 @@
   };
 
 
-  export const validatePassword = (email: string) => {
-    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+  export const validatePassword = (password: string) => {
+    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    return re.test(email);
+    return re.test(password);
   };

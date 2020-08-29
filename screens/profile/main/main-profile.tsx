@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   YellowBox,
+  Alert,
 } from "react-native";
 import {
   Avatar,
@@ -20,6 +21,7 @@ import { ProfileSocial } from "./extra/profile-social.component";
 import { PinIcon } from "./extra/icons";
 import { Post, Profile } from "./extra/data";
 import { SafeAreaConsumer } from "react-native-safe-area-context";
+import { Auth } from "aws-amplify";
 
 /*
  * Will warn because container view is ScrollView that contains 3 List components inside.
@@ -62,6 +64,18 @@ export default ({ navigation }: any): React.ReactElement => {
     navigation && navigation.navigate("editProfile");
   };
 
+  async function signOut() {
+    try {
+      await Auth.signOut({ global: true }).then( navigation && navigation.navigate("signIn"));
+    } catch (error) {
+      console.log("error signing out: ", error);
+      Alert.alert("Oops",error.message)
+    }
+  }
+
+  const onSignOutButtonPress = (): void => {
+    signOut();
+  };
   const onSettingsButtonPress = (): void => {
     // navigation && navigation.navigate("Chat1");
   };
@@ -148,6 +162,15 @@ export default ({ navigation }: any): React.ReactElement => {
             data={friends}
             renderItem={renderFriendItem}
           />
+            <View style={styles.profileButtonsContainer}>
+              <Button
+                style={styles.profileButton}
+                status="control"
+                onPress={onSignOutButtonPress}
+              >
+                Sign out 👋🏾
+              </Button>
+            </View>
         </ScrollView>
       )}
     </SafeAreaConsumer>

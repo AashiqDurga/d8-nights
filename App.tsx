@@ -2,40 +2,47 @@ import React, { useEffect, useState } from "react";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { AppNavigator, Auth } from "./navigation/app-navigator";
+import { AppNavigator, AuthNav  } from "./navigation/app-navigator";
 import { default as theme } from "./theme.json";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Amplify, { Hub } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import config from "./aws-exports";
 import { NavigationContainer } from "@react-navigation/native";
 Amplify.configure(config);
 
 const app = () => {
-  const [signedIn, setSignedIn] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
 
   useEffect(() => {
-    Hub.listen("auth", (data) => {
-      const { payload } = data;
-      console.log("A new auth event has happened: ", data);
-      if (payload.event === "signIn") {
-        setSignedIn(true);
-        console.log("a user has signed in!");
+    onLoad();
+  }, []);
+
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
       }
-      if (payload.event === "signOut") {
-        console.log("a user has signed out!");
-      }
-    });
-  }, [signedIn]);
+    }
+  
+    setIsAuthenticating(false);
+  }
 
   return (
+    !isAuthenticating &&
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme } }>
         <SafeAreaProvider>
           <NavigationContainer>
-            {signedIn == false ? (
+            {!isAuthenticated
+            ? (
               // No token found, user isn't signed in
-              <Auth />
+              <AuthNav />
             ) : (
               // User is signed in
               <AppNavigator />

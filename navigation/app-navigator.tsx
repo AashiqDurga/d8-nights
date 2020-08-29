@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DeckScreen from "../screens/deck/deck";
 import {
@@ -32,7 +31,7 @@ const BottomTabBar = ({ navigation, state }: any) => (
   </BottomNavigation>
 );
 
-export const Auth = () => (
+export const AuthNav = () => (
   <stack.Navigator headerMode="none">
     <stack.Screen name="Auth" component={AuthNavigator} />
     <stack.Screen name="Home" component={AppNavigator} />
@@ -46,6 +45,7 @@ export const AppNavigator = () => (
     <bottomTab.Screen name="Matches" component={MatchesNavigator} />
     <bottomTab.Screen name="Deck" component={DeckScreen} />
     <bottomTab.Screen name="Profile" component={ProfileNavigator} />
+    <stack.Screen name="Auth" component={AuthNavigator} />
   </bottomTab.Navigator>
 );
 
